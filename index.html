@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>덩크시티 선수 스탯 · DCD.GG</title>
-<meta name="description" content="덩크시티 다이너스티(Dunk City Dynasty) 한국 서버 선수 능력치·티어·포지션 도감. 선수별 덩크·3점·수비 능력치를 한눈에.">
+<meta name="description" content="덩크시티 다이너스티(Dunk City Dynasty) 한국 서버 선수 40명의 레벨별 능력치·스킬·재능 트리·강화·케미 도감. 선수 비교와 능력치 가이드.">
 <meta name="theme-color" content="#14110e">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DCD.GG">
 <meta property="og:title" content="덩크시티 선수 스탯 · DCD.GG">
-<meta property="og:description" content="한국 서버 선수 능력치·티어·포지션 도감. 선수별 능력치를 한눈에.">
+<meta property="og:description" content="한국 서버 선수 레벨별 능력치·스킬·재능·강화·케미를 한눈에. 선수 비교와 가이드.">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <style>
 :root{
@@ -166,7 +166,8 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 .bar.rk{grid-template-columns:56px 1fr 30px 34px}
 .bar .r{font-size:11px;color:var(--mut);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 .bar .r.best{color:var(--acc2)}
-.ranks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.ranks{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
+.ranks .cmpbtn{margin-left:4px;padding:3px 9px}
 .ranks span{font-size:11.5px;color:var(--mut);font-weight:700}
 .ranks b{color:var(--tx)}
 .cmpbtn{margin-left:8px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--acc2);font-weight:800;font-size:12px;padding:5px 10px;cursor:pointer}
@@ -195,6 +196,8 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 .radar .poly.b{fill:rgba(90,169,255,.22);stroke:var(--a)}
 .crow{display:grid;grid-template-columns:30px 1fr 56px 1fr 30px;align-items:center;gap:7px;padding:3px 0}
 .crow .k{text-align:center;font-size:12px;color:var(--mut);font-weight:700}
+.crow.w6{grid-template-columns:30px 1fr 96px 1fr 30px;padding:5px 0}
+.crow.w6 .k{font-size:11.5px;word-break:keep-all}
 .crow .v{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
 .crow .v:last-child{text-align:left}
 .crow .v.w{color:var(--hi)}
@@ -208,6 +211,126 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 footer{border-top:1px solid var(--line);color:var(--mut);font-size:11.5px;padding:18px 0 40px;line-height:1.7}
 footer b{color:var(--tx)}
 .disc{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:10px}
+/* level controls */
+.lvsel{max-width:150px}
+.pcard .ov small{font-size:9.5px;font-weight:700;opacity:.8;margin-left:3px}
+.lvctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px}
+.lvctl label{font-size:12px;font-weight:800;color:var(--mut)}
+.lvctl input[type=range]{flex:1;min-width:120px;accent-color:var(--acc)}
+.lvctl b{font-variant-numeric:tabular-nums;min-width:44px;font-size:13.5px}
+.lvctl .sel{padding:5px 8px}
+.lvctl .presets{display:flex;gap:5px;width:100%}
+.lvctl .presets button{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:7px;color:var(--mut);font-weight:800;font-size:11.5px;padding:5px 0;cursor:pointer}
+.lvctl .presets button.on{color:var(--acc);border-color:var(--acc)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.seg button{background:var(--panel);border:0;color:var(--mut);padding:5px 10px;cursor:pointer;font-weight:800;font-size:11.5px}
+.seg button.on{background:var(--acc);color:#1a1109}
+.r6v{display:grid;grid-template-columns:1fr;gap:3px 12px;margin-top:6px}
+.r6v div{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);font-weight:700}
+.r6v b{color:var(--tx);font-variant-numeric:tabular-nums}
+.bar{cursor:pointer}
+.bar .k small{display:block;font-size:10px;color:var(--hi);font-weight:700}
+.bdesc{display:none;grid-column:1/-1;font-size:11.5px;color:var(--mut);line-height:1.55;background:var(--panel2);border-radius:8px;padding:6px 9px;margin:2px 0 4px}
+.bar.open .bdesc{display:block}
+.bar.open .k{color:var(--acc2)}
+.hnums{display:flex;align-items:baseline;gap:4px 14px;margin-top:10px;flex-wrap:wrap}
+.hnums .rt b{font-size:34px;font-weight:900;line-height:1;color:var(--acc);font-variant-numeric:tabular-nums}
+.hnums .rt span,.hnums .av2 span{color:var(--mut);font-size:11.5px;font-weight:700;margin-left:4px}
+.hnums .av2 b{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums}
+.flag{width:18px;height:auto;border-radius:2px;vertical-align:-2px;margin-right:4px}
+.tag.flagt{display:inline-flex;align-items:center}
+.tag.mut{color:var(--mut)}
+/* skills */
+.sk{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px 13px}
+.sk.ult{border-color:rgba(255,122,47,.55);background:linear-gradient(135deg,rgba(255,122,47,.13),var(--panel2) 60%)}
+.skh{display:flex;gap:11px;align-items:center}
+.skh img,.ic{width:46px;height:46px;border-radius:50%;background:var(--panel);flex:none;object-fit:cover}
+.ic.sm{width:34px;height:34px}
+.skh .h{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.skh .h b{font-size:15px;font-weight:900}
+.labs{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.labs span{font-size:10.5px;font-weight:800;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:1px 5px;background:var(--panel)}
+.sk .d{margin:9px 0 0;font-size:13px;line-height:1.6}
+.meta2{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:7px;font-size:11.5px;color:var(--mut);font-weight:700}
+.meta2 b{color:var(--tx)}
+.quote{margin:9px 0 0;padding:7px 10px;border-left:3px solid var(--acc);background:var(--panel);border-radius:0 8px 8px 0;font-size:12px;color:var(--mut);line-height:1.6;font-style:italic}
+details.more2{margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+details.more2 summary{cursor:pointer;font-size:12.5px;font-weight:800;color:var(--acc2);list-style:none}
+details.more2 summary::-webkit-details-marker{display:none}
+details.more2 summary::before{content:"▸ ";}
+details.more2[open] summary::before{content:"▾ ";}
+.txt{font-size:12.5px;line-height:1.65;color:var(--tx);white-space:pre-line;margin:7px 0 0}
+.combo{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:6px;font-size:11.5px;font-weight:800}
+.combo span{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.combo i{font-style:normal;color:var(--mut)}
+.sub2{display:flex;gap:10px;margin-top:9px;padding:9px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.sub2 b{font-size:13.5px}
+.sub2 .by{font-size:11px;color:var(--acc2);font-weight:800;margin-left:6px}
+.sub2 p{margin:4px 0 0;font-size:12px;color:var(--mut);line-height:1.55}
+.tg{margin-top:8px;padding:9px 10px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.tg .h{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:800}
+.tg .ty{font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:5px;background:var(--panel2);color:var(--mut)}
+.tg .ty.unl{background:var(--acc);color:#1a1109}
+.tg .req{font-size:11px;color:var(--mut);font-weight:700}
+.tg ol{margin:6px 0 0;padding-left:18px;font-size:12px;line-height:1.6;color:var(--mut)}
+.tg ol b{color:var(--tx)}
+.loading{color:var(--mut);font-size:12.5px;padding:20px 0;text-align:center}
+/* growth */
+.gtbl{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.gtbl th,.gtbl td{padding:6px 6px;border-bottom:1px solid var(--line);text-align:right}
+.gtbl th:first-child,.gtbl td:first-child{text-align:left}
+.gtbl th{color:var(--mut);font-size:11px;font-weight:800}
+.gtbl td.up{color:var(--hi);font-weight:800}
+.gstep{display:flex;gap:10px;align-items:flex-start;padding:10px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.gstep .lv{flex:none;width:44px;text-align:center;font-weight:900;color:var(--acc);font-size:13px;padding-top:2px}
+.gstep .gb{flex:1;min-width:0}
+.gstep .st{font-size:12.5px;font-weight:800}
+.gstep .st em{font-style:normal;color:var(--hi)}
+.gstep .rw{display:flex;gap:9px;margin-top:7px;align-items:flex-start}
+.gstep .rw p{margin:3px 0 0;font-size:12px;color:var(--mut);line-height:1.55}
+.gstep .cost{font-size:11px;color:var(--mut);font-weight:700;margin-top:5px}
+.pill{font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:5px;background:var(--panel);border:1px solid var(--line);color:var(--mut);margin-left:4px}
+.pill.ex{background:var(--acc);border-color:var(--acc);color:#1a1109}
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.kv div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kv dt{font-size:11px;color:var(--mut);font-weight:700}
+.kv dd{margin:2px 0 0;font-weight:900;font-size:14px;font-variant-numeric:tabular-nums}
+/* profile */
+.fullimg{display:block;max-width:100%;max-height:340px;margin:0 auto 14px;object-fit:contain}
+.dlg{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.7}
+.dlg b{color:var(--acc2);margin-right:6px}
+/* bonds */
+.bond .pt{display:flex;gap:10px;align-items:center;margin-top:9px}
+.bond .pt img{width:40px;height:50px;object-fit:cover;object-position:center top;border-radius:8px;background:var(--panel)}
+.bond .pt b{font-size:13.5px}
+.bond .pt .ef{margin-left:auto;font-size:12.5px;font-weight:900;color:var(--hi);text-align:right}
+.bond .pt .ef small{display:block;color:var(--mut);font-size:10.5px;font-weight:700}
+.shared{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:11.5px;color:var(--mut);font-weight:700}
+.shared button{background:var(--panel);border:1px solid var(--line);border-radius:999px;color:var(--tx);font-weight:800;font-size:11.5px;padding:3px 9px;cursor:pointer}
+.shared button:hover{border-color:var(--acc)}
+/* guide */
+.guide{padding:12px 0 40px}
+.guide[hidden]{display:none}
+.guide h2{font-size:16px;margin:22px 0 10px;font-weight:900}
+.guide h2:first-child{margin-top:4px}
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.gcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 13px;min-width:0;overflow-wrap:anywhere}
+.gcard b{font-size:14px}
+.gcard ul{margin:6px 0 0;padding-left:17px;color:var(--mut);font-size:12.5px;line-height:1.6}
+.gcard p{margin:6px 0 0;color:var(--mut);font-size:12.5px;line-height:1.65;white-space:pre-line}
+.guide details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.guide details summary{cursor:pointer;font-weight:800}
+.guide details p{color:var(--mut);font-size:12.5px;line-height:1.7;white-space:pre-line;margin:8px 0 0}
+.guide .gtbl{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.guide .gtbl th,.guide .gtbl td{white-space:nowrap;padding:8px 10px}
+@media(max-width:560px){
+  .hnums .rt b{font-size:28px}
+  .gcards{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr 1fr}
+  .lvsel{max-width:120px}
+  .r6v{grid-template-columns:1fr 1fr}
+  .fullimg{max-height:280px}
+}
 </style>
 </head>
 <body>
@@ -218,7 +341,7 @@ footer b{color:var(--tx)}
       <span>DUNK CITY <b>스탯</b> <i>DCD.GG</i></span>
     </div>
     <div class="spacer"></div>
-    <div class="search"><input id="q" type="search" placeholder="선수 검색 (예: 커리, James)" autocomplete="off"></div>
+    <div class="search"><input id="q" type="search" placeholder="선수·별명·스킬 검색 (예: 커리, 르브론)" autocomplete="off"></div>
     <button class="iconbtn" id="theme" title="테마 전환" aria-label="테마 전환"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
 </header>
@@ -226,7 +349,7 @@ footer b{color:var(--tx)}
 <div class="wrap">
   <div class="hero">
     <h1>한국 서버 선수 능력치 도감</h1>
-    <p>현재 한국 서버에서 플레이할 수 있는 선수들의 능력치입니다. 카드를 눌러 능력치·프로필·스킬·케미를 확인하세요.</p>
+    <p>한국 서버에 출시된 선수 40명의 능력치·스킬·재능·성장 정보입니다. 레벨을 바꾸면 레벨별 능력치로 다시 계산됩니다. 카드를 눌러 자세히 보세요.</p>
   </div>
 
   <div class="filters">
@@ -242,8 +365,9 @@ footer b{color:var(--tx)}
       <span class="chip" data-q="SS">SS</span><span class="chip" data-q="S">S</span><span class="chip" data-q="A">A</span>
     </div>
     <div class="toolbar">
-      <select class="sel" id="sort"></select>
-      <div class="viewtog"><button id="vGrid" class="on">카드</button><button id="vTable">표</button><button id="vCmp">비교</button></div>
+      <select class="sel" id="sort" aria-label="정렬"></select>
+      <select class="sel lvsel" id="lvSel" aria-label="레벨 기준"></select>
+      <div class="viewtog"><button id="vGrid" class="on">카드</button><button id="vTable">표</button><button id="vCmp">비교</button><button id="vGuide">가이드</button></div>
       <span class="count" id="count"></span>
     </div>
   </div>
@@ -251,47 +375,148 @@ footer b{color:var(--tx)}
   <div class="grid" id="grid"></div>
   <div class="scrollx"><table class="tbl" id="tbl"></table></div>
   <section class="cmp" id="cmp" hidden></section>
+  <section class="guide" id="guide" hidden></section>
 
   <footer>
-    <div>데이터: 덩크시티 다이너스티 설치본에서 추출 · 업데이트 <b id="upd"></b></div>
+    <div>데이터: 덩크시티 다이너스티 설치본(한국어 테이블)에서 추출 · 업데이트 <b id="upd"></b></div>
     <div class="disc">
       비공식 팬 제작 페이지입니다. 선수 이름·이미지의 권리는 넷이즈와 각 권리자에게 있습니다.
-      능력치는 게임 데이터 기준이며 업데이트로 바뀔 수 있습니다. 한국 서버 미출시 선수는 포함하지 않았습니다.
+      능력치는 게임 데이터 기준이며 업데이트로 바뀔 수 있습니다. 한국 서버 미출시 선수는 포함하지 않았습니다.<br>
+      레벨별 능력치는 게임 공식(기본 + 트레이닝 + 한계 돌파 + 강화)으로 계산한 값이며, 계정마다 다른 잠재력·의상·파트너 보너스는 넣지 않았습니다.
+      ‘평점’은 게임 카드 평점, ‘평균’은 14개 능력치 평균(사이트 자체 지표)입니다.
     </div>
   </footer>
 </div>
 
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
 
-<script src="data.js"></script>
+<script src="data.js?v=202610170114"></script>
 <script>
-const D = window.DCD, LAB = D.statLabels, PL = D.players;
+const D = window.DCD, LAB = D.statLabels, PL = D.players, K = LAB.map(l=>l[0]), LBL = Object.fromEntries(LAB);
+const V = '202610170114';
 document.getElementById('upd').textContent = D.updated;
-const ovr = p => Math.round(Object.values(p.stats).reduce((a,b)=>a+b,0)/LAB.length);
-PL.forEach(p => p.ovr = ovr(p));
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clean = s => esc(String(s??'').replace(/<[^>]*>/g,'')); // 게임 텍스트의 색·기울임 태그 제거
+const fmt = n => Number(n).toLocaleString('ko-KR');
+const byId = id => PL.find(p=>p.id==id);
+const icon = (res,cls='ic') => res?`<img class="${cls}" loading="lazy" src="img/icons/${res}.webp" alt="">`:'';
 
-let fPos='', fQ='', fText='', sortKey='ovr', view='grid';
+// ── 6각 레이더(게임 공식: lua Formula.character_Ability) ──
+const R6 = D.radar6.map(([k,l,f])=>[k,l,f.split('+').map(t=>{const [s,w]=t.trim().split('*');return [s.trim(),+w]})]);
+const R6LAB = R6.map(([k,l])=>[k,l]);
+const r6of = st => Object.fromEntries(R6.map(([k,,w])=>[k,Math.floor(w.reduce((a,[s,x])=>a+st[s]*x,0)+1e-6)]));
 
-// sort options
+// ── 레벨별 능력치: 기본 + 트레이닝(Lv2~L) + 한계 돌파(돌파 레벨 < L) + 강화(Lv2~S) ──
+let LV=1, SL=1;
+try{const s=JSON.parse(localStorage.getItem('dcd-lv')||'null');if(s&&s[0]>=1&&s[0]<=50&&s[1]>=1&&s[1]<=7){LV=s[0];SL=s[1]}}catch(e){}
+function statsAt(p,L=LV,S=SL){
+  const st={...p.stats};
+  for(let lv=2;lv<=L;lv++) for(const c of p.g.t[lv-2]) st[K[parseInt(c,16)]]++;
+  for(const [at,adds] of p.g.b) if(at<L) for(const [i,v] of adds) st[K[i]]+=v;
+  for(const [lv,adds] of p.g.s) if(lv<=S) for(const [i,v] of adds) st[K[i]]+=v;
+  return st;
+}
+let SCALE=100, SCALE6=100, RANK={};
+function recalc(){
+  PL.forEach(p=>{p.cur=statsAt(p);p.ovr=Math.round(K.reduce((a,k)=>a+p.cur[k],0)/K.length);p.r6=r6of(p.cur)});
+  SCALE=Math.max(100,...PL.flatMap(p=>K.map(k=>p.cur[k])));
+  SCALE6=Math.max(100,...PL.flatMap(p=>R6.map(([k])=>p.r6[k])));
+  RANK={};
+  [['ovr'],['rating'],...LAB,...R6LAB.map(([k])=>['r6:'+k])].forEach(([k])=>{RANK[k]={};PL.forEach(p=>RANK[k][p.id]=1+PL.filter(q=>val(q,k)>val(p,k)).length)});
+}
+const val=(p,k)=>k==='ovr'?p.ovr:k==='rating'?(p.rating||0):k.startsWith('r6:')?p.r6[k.slice(3)]:p.cur[k];
+const lvName=(L=LV,S=SL)=>`Lv${L}${S>1?` · 강화${S}`:''}`;
+function setLevel(L,S){LV=Math.min(50,Math.max(1,L|0));SL=Math.min(7,Math.max(1,S|0));
+  try{localStorage.setItem('dcd-lv',JSON.stringify([LV,SL]))}catch(e){}recalc();fillLvSel()}
+const PRESETS=[[1,1,'Lv1 (기본)'],[10,1,'Lv10'],[20,1,'Lv20'],[30,1,'Lv30'],[40,1,'Lv40'],[50,1,'Lv50 (최대)'],[50,7,'Lv50 + 강화7']];
+function fillLvSel(){
+  const s=document.getElementById('lvSel'), cur=`${LV}-${SL}`;
+  const opts=PRESETS.map(([l,st,n])=>[`${l}-${st}`,n]);
+  if(!opts.some(o=>o[0]===cur)) opts.push([cur,lvName()]);
+  s.innerHTML=opts.map(([v,n])=>`<option value="${v}" ${v===cur?'selected':''}>${n}</option>`).join('');
+}
+
+let fPos='', fQ='', fText='', sortKey='ovr', view='grid', RM='6';
 const sortSel = document.getElementById('sort');
-sortSel.innerHTML = '<option value="ovr">평균 능력치 순</option>' +
-  LAB.map(([k,l])=>`<option value="${k}">${l} 순</option>`).join('');
+sortSel.innerHTML = '<option value="ovr">평균 능력치 순</option><option value="rating">게임 평점 순</option>' +
+  `<optgroup label="6각 능력">${R6LAB.map(([k,l])=>`<option value="r6:${k}">${l} 순</option>`).join('')}</optgroup>`+
+  `<optgroup label="능력치">${LAB.map(([k,l])=>`<option value="${k}">${l} 순</option>`).join('')}</optgroup>`;
+const sortLabel=k=>k==='ovr'?'평균':k==='rating'?'평점':k.startsWith('r6:')?R6LAB.find(x=>x[0]===k.slice(3))[1]:LBL[k];
 
 function filtered(){
   let a = PL.filter(p =>
     (!fPos || p.pos===fPos) && (!fQ || p.quality===fQ) &&
-    (!fText || (p.name+p.kr+p.cn+(p.full||'')+(p.nick||'')).toLowerCase().includes(fText)));
-  a.sort((x,y)=> (sortKey==='ovr'? y.ovr-x.ovr : y.stats[sortKey]-x.stats[sortKey]));
+    (!fText || [p.name,p.kr,p.cn,p.full,p.nick,...(p.tags||[]),...(p.sk||[])].join(' ').toLowerCase().includes(fText)));
+  a.sort((x,y)=> val(y,sortKey)-val(x,sortKey) || y.ovr-x.ovr);
   return a;
 }
-// 비교: 기본은 평균 능력치 1·2위
-const byOvr=[...PL].sort((x,y)=>y.ovr-x.ovr);
-let cmpA=byOvr[0].id, cmpB=byOvr[1].id;
+function maxOf(k){ return Math.max(...PL.map(p=>val(p,k))); }
+
+function render(){
+  const a = filtered();
+  const grid = document.getElementById('grid'), tbl = document.getElementById('tbl');
+  document.getElementById('cmp').hidden = view!=='cmp';
+  document.getElementById('guide').hidden = view!=='guide';
+  if(view==='cmp'||view==='guide'){ grid.style.display='none'; tbl.classList.remove('show'); document.getElementById('count').textContent='';
+    view==='cmp'?renderCmp():renderGuide(); return; }
+  document.getElementById('count').textContent = a.length + '명 · ' + lvName();
+  if(view==='grid'){
+    grid.style.display=''; tbl.classList.remove('show');
+    grid.innerHTML = a.map(p=>`
+      <div class="pcard" data-id="${p.id}">
+        <div class="pic">${p.img?`<img loading="lazy" src="${p.img}" alt="${esc(p.kr)}">`:''}</div>
+        <div class="ov">${val(p,sortKey)}<small>${sortLabel(sortKey)}</small></div>
+        <div class="qbadge q-${p.quality.toLowerCase()}">${p.quality}</div>
+        <div class="meta"><div class="nm">${esc(p.kr)}</div>
+          <div class="sub"><span class="posdot">${p.pos}</span><span>${D.io[p.io]||''}</span>${p.rating?`<span>평점 ${p.rating}</span>`:''}</div></div>
+      </div>`).join('');
+  } else {
+    grid.style.display='none'; tbl.classList.add('show');
+    const cols = [['rating','평점'],['ovr','평균'],...LAB];
+    const mx = {}; cols.forEach(([k])=> mx[k]=maxOf(k));
+    tbl.innerHTML = `<thead><tr><th>선수</th><th>포지션</th>`+
+      cols.map(([k,l])=>`<th class="${sortKey===k?'on':''}" data-k="${k}">${l}</th>`).join('')+`</tr></thead>`+
+      `<tbody>`+a.map(p=>`<tr data-id="${p.id}"><td><div class="pn">${p.img?`<img loading="lazy" src="${p.img}" alt="">`:''}<div><b>${esc(p.kr)}</b><div style="color:var(--mut);font-size:11px">${esc(p.name)}</div></div></div></td>`+
+        `<td><span class="q-${p.quality.toLowerCase()}" style="padding:1px 6px;border-radius:5px;font-size:11px;font-weight:800">${p.quality}</span> ${p.pos}</td>`+
+        cols.map(([k])=>{const v=val(p,k);return `<td class="${v===mx[k]?'hi':''}">${v}</td>`}).join('')+`</tr>`).join('')+`</tbody>`;
+  }
+}
+
+// ── 레이더(여러 선수 겹쳐 그리기) ──
+function radar(axes, series, top){
+  const n=axes.length, R=78, cx=95, cy=95, ang=i=>-Math.PI/2+i*2*Math.PI/n;
+  const grids=[0.25,0.5,0.75,1].map(g=>`<path class="grid" d="${axes.map((_,i)=>(i?'L':'M')+(cx+Math.cos(ang(i))*R*g).toFixed(1)+' '+(cy+Math.sin(ang(i))*R*g).toFixed(1)).join('')}Z"/>`).join('');
+  let axs='',labels='';
+  axes.forEach(([,l],i)=>{const a=ang(i),x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;
+    axs+=`<line class="axis" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
+    const lx=cx+Math.cos(a)*(R+13),ly=cy+Math.sin(a)*(R+13),anc=Math.abs(Math.cos(a))<0.3?'middle':(Math.cos(a)>0?'start':'end');
+    const parts=l.length>5&&l.includes(' ')?l.split(' '):[l], y0=ly+3-(parts.length-1)*5;
+    labels+=`<text x="${lx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="${anc}">${parts.map((t,j)=>`<tspan x="${lx.toFixed(1)}" dy="${j?10:0}">${esc(t)}</tspan>`).join('')}</text>`;});
+  const polys=series.map((st,j)=>`<path class="poly ${j?'b':''}" d="M${axes.map(([k],i)=>{const v=Math.max(0,(st[k]||0)/top);
+    return (cx+Math.cos(ang(i))*R*v).toFixed(1)+' '+(cy+Math.sin(ang(i))*R*v).toFixed(1)}).join('L')}Z"/>`).join('');
+  return `<svg class="radar" viewBox="-34 -10 258 212" role="img" aria-label="능력치 레이더">${grids}${axs}${polys}${labels}</svg>`;
+}
+const radarFor=(...ps)=>RM==='6'?radar(R6LAB,ps.map(p=>p.r6),SCALE6):radar(LAB,ps.map(p=>p.cur),SCALE);
+const segRM=()=>`<div class="seg" role="group" aria-label="레이더 종류"><button data-rm="6" class="${RM==='6'?'on':''}">6각 (게임 공식)</button><button data-rm="14" class="${RM==='14'?'on':''}">14항목</button></div>`;
+
+// ── 선수 상세 데이터(스킬·재능·강화)는 열 때만 불러온다 ──
+const PD={}, PDW={};
+window.DCD_P=(id,d)=>{PD[id]=d;(PDW[id]||[]).forEach(f=>f(d));delete PDW[id]};
+function loadP(id){return new Promise(res=>{if(PD[id])return res(PD[id]);
+  const first=!PDW[id];(PDW[id]=PDW[id]||[]).push(res);if(!first)return;
+  const s=document.createElement('script');s.src=`data/p/${id}.js?v=${V}`;s.onerror=()=>{(PDW[id]||[]).forEach(f=>f(null));delete PDW[id]};document.head.appendChild(s)})}
+
+// ── 비교 ──
+const byOvr=()=>[...PL].sort((x,y)=>y.ovr-x.ovr);
+let cmpA, cmpB;
 function renderCmp(){
-  const A=PL.find(p=>p.id==cmpA), B=PL.find(p=>p.id==cmpB), el=document.getElementById('cmp');
+  if(!cmpA){const b=byOvr();cmpA=b[0].id;cmpB=b[1].id}
+  const A=byId(cmpA), B=byId(cmpB), el=document.getElementById('cmp');
   const opts=sel=>[...PL].sort((x,y)=>x.kr.localeCompare(y.kr,'ko')).map(p=>`<option value="${p.id}" ${p.id==sel?'selected':''}>${esc(p.kr)} · ${p.pos} ${p.quality}</option>`).join('');
-  let wa=0,wb=0; LAB.forEach(([k])=>{if(A.stats[k]>B.stats[k])wa++;else if(B.stats[k]>A.stats[k])wb++});
-  const head=(p,c)=>`<div class="head ${c}" data-id="${p.id}">${p.img?`<img src="${p.img}" alt="">`:''}<div><div class="nm">${esc(p.kr)}</div><div class="sub">${p.pos} · ${p.quality}급</div></div><div class="o">${p.ovr}</div></div>`;
+  const rows=RM==='6'?R6LAB.map(([k,l])=>[l,A.r6[k],B.r6[k]]):LAB.map(([k,l])=>[l,A.cur[k],B.cur[k]]);
+  const top=RM==='6'?SCALE6:SCALE;
+  let wa=0,wb=0; rows.forEach(([,a,b])=>{if(a>b)wa++;else if(b>a)wb++});
+  const head=(p,c)=>`<div class="head ${c}" data-id="${p.id}">${p.img?`<img src="${p.img}" alt="">`:''}<div><div class="nm">${esc(p.kr)}</div><div class="sub">${p.pos} · ${p.quality}급 · 평점 ${p.rating||'-'}</div></div><div class="o">${p.ovr}</div></div>`;
   el.innerHTML=`
     <div class="pick"><select class="sel" id="cA" aria-label="선수 A">${opts(cmpA)}</select>
       <button class="swap" title="좌우 바꾸기" aria-label="좌우 바꾸기">⇄</button>
@@ -299,81 +524,154 @@ function renderCmp(){
     <div class="card">
       <div class="heads">${head(A,'a')}${head(B,'b')}</div>
       <div class="body2">
-        <div>${radar(A.stats,B.stats)}
+        <div style="text-align:center">${segRM()}${radarFor(A,B)}
           <div class="lg"><span class="a">● ${esc(A.kr)}</span><span class="b">● ${esc(B.kr)}</span></div>
-          <div class="sum">우세 항목 <b>${wa}</b> : <b>${wb}</b></div></div>
-        <div>${LAB.map(([k,l])=>{const a=A.stats[k],b=B.stats[k];return `
-          <div class="crow"><span class="v ${a>b?'w':''}">${a}</span><span class="t l"><span style="width:${a}%"></span></span>
-          <span class="k">${l}</span><span class="t r"><span style="width:${b}%"></span></span><span class="v ${b>a?'w':''}">${b}</span></div>`}).join('')}</div>
+          <div class="sum">${lvName()} 기준 · 우세 항목 <b>${wa}</b> : <b>${wb}</b></div></div>
+        <div>${rows.map(([l,a,b])=>`
+          <div class="crow ${RM==='6'?'w6':''}"><span class="v ${a>b?'w':''}">${a}</span><span class="t l"><span style="width:${a/top*100}%"></span></span>
+          <span class="k">${esc(l)}</span><span class="t r"><span style="width:${b/top*100}%"></span></span><span class="v ${b>a?'w':''}">${b}</span></div>`).join('')}</div>
       </div>
     </div>`;
   try{history.replaceState(history.state,'',`#vs/${cmpA}/${cmpB}`)}catch(e){}
 }
-function maxOf(k){ return Math.max(...PL.map(p=> k==='ovr'?p.ovr:p.stats[k])); }
 
-function render(){
-  const a = filtered();
-  document.getElementById('count').textContent = a.length + '명';
-  const grid = document.getElementById('grid'), tbl = document.getElementById('tbl'), cmp=document.getElementById('cmp');
-  cmp.hidden = view!=='cmp';
-  if(view==='cmp'){ grid.style.display='none'; tbl.classList.remove('show'); document.getElementById('count').textContent=''; renderCmp(); return; }
-  if(view==='grid'){
-    grid.style.display=''; tbl.classList.remove('show');
-    grid.innerHTML = a.map(p=>`
-      <div class="pcard" data-id="${p.id}">
-        <div class="pic">${p.img?`<img loading="lazy" src="${p.img}" alt="${p.name}">`:''}</div>
-        <div class="ov">${p.ovr}</div>
-        <div class="qbadge q-${p.quality.toLowerCase()}">${p.quality}</div>
-        <div class="meta"><div class="nm">${p.kr}</div>
-          <div class="sub"><span class="posdot">${p.pos}</span><span>${D.io[p.io]||''}</span></div></div>
-      </div>`).join('');
-  } else {
-    grid.style.display='none'; tbl.classList.add('show');
-    const cols = [['ovr','평균'],...LAB];
-    const mx = {}; cols.forEach(([k])=> mx[k]=maxOf(k));
-    tbl.innerHTML = `<thead><tr><th>선수</th><th>포지션</th>`+
-      cols.map(([k,l])=>`<th class="${sortKey===k?'on':''}" data-k="${k}">${l}</th>`).join('')+`</tr></thead>`+
-      `<tbody>`+a.map(p=>`<tr data-id="${p.id}"><td><div class="pn">${p.img?`<img src="${p.img}">`:''}<div><b>${p.kr}</b><div style="color:var(--mut);font-size:11px">${p.name}</div></div></div></td>`+
-        `<td><span class="q-${p.quality.toLowerCase()}" style="padding:1px 6px;border-radius:5px;font-size:11px;font-weight:800">${p.quality}</span> ${p.pos}</td>`+
-        cols.map(([k])=>{const v=k==='ovr'?p.ovr:p.stats[k];return `<td class="${v===mx[k]?'hi':''}">${v}</td>`}).join('')+`</tr>`).join('')+`</tbody>`;
-  }
+// ── 가이드 ──
+function renderGuide(){
+  const el=document.getElementById('guide'); if(el.dataset.done) return; el.dataset.done=1;
+  const w=f=>f.map(([s,x])=>`${LBL[s]} ${Math.round(x*100)}%`).join(' + ');
+  const gc=D.growthCost;
+  el.innerHTML=`
+    <h2>능력치 설명 <small style="color:var(--mut);font-size:12px">게임 ‘스탯 설명’ 기준</small></h2>
+    <div class="gcards">${LAB.map(([k,l])=>`<div class="gcard"><b>${esc(l)}</b><ul>${(D.statDesc[k]||[]).map(t=>`<li>${clean(t)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <h2>6각 레이더 계산법</h2>
+    <div class="gcards">${R6.map(([k,l,f])=>`<div class="gcard"><b>${esc(l)}</b><p>${esc(w(f))}</p></div>`).join('')}</div>
+    <p class="note">게임 선수 정보 화면의 6각형 그래프와 같은 공식입니다(소수점 버림). 스틸은 6각 계산에 들어가지 않습니다.</p>
+    <h2>포지션과 역할</h2>
+    <div class="gcards">${Object.entries(D.pos).map(([k,v])=>`<div class="gcard"><b>${k} · ${esc(v)}</b><p>${PL.filter(p=>p.pos===k).length}명 · ${PL.filter(p=>p.pos===k).map(p=>esc(p.kr)).join(', ')}</p></div>`).join('')}
+      ${D.roleTutorial.map(t=>`<div class="gcard"><p>${clean(t)}</p></div>`).join('')}</div>
+    <h2>성장 비용 (등급별 공통)</h2>
+    <div class="scrollx"><table class="gtbl"><thead><tr><th>등급</th><th>트레이닝 Lv2~50</th><th>한계 돌파 Lv10/20/30/40</th><th>Lv50까지 합계</th><th>강화 Lv2~7</th></tr></thead>
+      <tbody>${['SS','S','A'].filter(q=>gc[q]).map(q=>`<tr><td><b>${q}</b></td><td>${fmt(gc[q].train)} 골드</td><td>${gc[q].bt.map(fmt).join(' / ')}</td><td><b>${fmt(gc[q].toLv50)}</b> 골드</td><td>${fmt(gc[q].strengthen)} 골드 + 전용 강화 카드 ${gc[q].cards}장</td></tr>`).join('')}</tbody></table></div>
+    <p class="note">트레이닝은 레벨이 오를 때마다 정해진 능력치 5개가 1씩 오릅니다. 레벨 10·20·30·40에서 한계 돌파를 하면 최대 레벨이 10 늘고 선수별 주력 능력치 5개가 2~4씩 오릅니다. 강화는 Lv2~7까지 능력치와 배지·프리스타일이 붙습니다.</p>
+    <h2>스킬 상황 용어</h2>
+    <div class="gcards"><div class="gcard"><ul>${Object.values(D.skillStates||{}).map(v=>`<li>${clean(v)}</li>`).join('')}<li>궁극기 = 버스트 스킬 (사기를 소모)</li><li>패시브 스킬 = 조건이 맞으면 자동 발동</li></ul></div></div>
+    <h2>게임 팁 (튜토리얼)</h2>
+    ${D.tutorials.map(t=>`<details><summary>${esc(t.title)}</summary><p>${clean(t.text)}</p></details>`).join('')}`;
 }
 
-// radar
-function radar(...series){ // series: stats 객체 여러 개 → 겹쳐 그림
-  const n=LAB.length, R=78, cx=95, cy=95;
-  const top=Math.max(100,...series.flatMap(s=>LAB.map(([k])=>s[k]||0)));
-  const grids=[0.25,0.5,0.75,1].map(g=>{
-    let d='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;const x=cx+Math.cos(a)*R*g,y=cy+Math.sin(a)*R*g;d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}
-    return `<path class="grid" d="${d}Z"/>`}).join('');
-  let axes='',labels='';
-  for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;const x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;
-    axes+=`<line class="axis" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
-    const lx=cx+Math.cos(a)*(R+13),ly=cy+Math.sin(a)*(R+13);
-    const anc=Math.abs(Math.cos(a))<0.3?'middle':(Math.cos(a)>0?'start':'end');
-    labels+=`<text x="${lx.toFixed(1)}" y="${(ly+3).toFixed(1)}" text-anchor="${anc}">${LAB[i][1]}</text>`;
-  }
-  const polys=series.map((st,j)=>{const d='M'+LAB.map(([k],i)=>{const a=-Math.PI/2+i*2*Math.PI/n,v=(st[k]||0)/top;
-    return (cx+Math.cos(a)*R*v).toFixed(1)+' '+(cy+Math.sin(a)*R*v).toFixed(1)}).join('L')+'Z';
-    return `<path class="poly ${j?'b':''}" d="${d}"/>`}).join('');
-  return `<svg class="radar" viewBox="-26 -4 242 198">${grids}${axes}${polys}${labels}</svg>`;
-}
-const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const HAN = /[一-鿿]/; // 케미 이야기 중 한국어 번역이 아직 없는(중문) 것은 숨긴다
+// ── 선수 상세 ──
 const PROF = [['birthPlace','출생지'],['birth','생일'],['height','키'],['weight','몸무게'],['hand','주손'],['number','등번호'],['hobby','취미']];
-const ROLE = {'궁극기':['r-ult',0],'패시브':['r-pas',1],'스킬':['r-sk',2]};
-let tab='stats';
-// 능력치별 전체 순위(동점은 같은 순위)
-const RANK={};
-[['ovr'],...LAB].forEach(([k])=>{const val=p=>k==='ovr'?p.ovr:p.stats[k];RANK[k]={};PL.forEach(p=>RANK[k][p.id]=1+PL.filter(q=>val(q)>val(p)).length)});
-const posRank=p=>1+PL.filter(q=>q.pos===p.pos&&q.ovr>p.ovr).length, posCnt=pos=>PL.filter(q=>q.pos===pos).length;
+const ROLE = {'궁극기':['r-ult',0],'스킬':['r-sk',1],'패시브':['r-pas',2]};
+let tab='stats', curId=null, dirty=false;
+try{history.state&&history.state.dcdModal&&history.replaceState(null,'')}catch(e){}
+
+function headNums(p){
+  return `<div class="hnums" id="hnums">${p.rating?`<div class="rt"><b>${p.rating}</b><span>게임 평점</span></div>`:''}
+    <div class="av2"><b>${p.ovr}</b><span>평균 · ${lvName()}</span></div></div>
+    <div class="ranks"><span>평균 전체 <b>${RANK.ovr[p.id]}위</b>/${PL.length}</span><span>·</span><span>${p.pos} 내 <b>${1+PL.filter(q=>q.pos===p.pos&&q.ovr>p.ovr).length}위</b>/${PL.filter(q=>q.pos===p.pos).length}</span>
+    <button class="cmpbtn" data-cmp="${p.id}">⇄ 비교</button></div>`;
+}
+function statsPane(p){
+  const base=statsAt(p,1,1), mx={}; LAB.forEach(([k])=>mx[k]=maxOf(k));
+  return `<div>${segRM()}${radarFor(p)}
+      ${RM==='6'?`<div class="r6v">${R6LAB.map(([k,l])=>`<div><span>${esc(l)}</span><b>${p.r6[k]} <small style="color:var(--mut);font-weight:700">${RANK['r6:'+k][p.id]}위</small></b></div>`).join('')}</div>`:''}</div>
+    <div class="bars">${LAB.map(([k,l])=>{const v=p.cur[k],up=v-base[k];return `
+      <div class="bar rk" data-stat="${k}"><span class="k">${l}${up?`<small>+${up}</small>`:''}</span><span class="t"><span class="f" style="width:${v/SCALE*100}%"></span></span>
+      <span class="v ${v===mx[k]?'hi':''}">${v}</span><span class="r ${RANK[k][p.id]<=3?'best':''}">${RANK[k][p.id]}위</span>
+      <span class="bdesc">${(D.statDesc[k]||[]).map(clean).join('<br>')}</span></div>`}).join('')}
+      <div class="note">능력치를 누르면 게임 속 설명이 나옵니다. 순위는 40명 중 ${lvName()} 기준입니다.</div></div>`;
+}
+function lvCtl(){
+  return `<div class="lvctl"><label for="lvR">레벨</label><input type="range" id="lvR" min="1" max="50" value="${LV}"><b id="lvV">Lv${LV}</b>
+    <label for="slS">강화</label><select class="sel" id="slS">${[1,2,3,4,5,6,7].map(s=>`<option value="${s}" ${s===SL?'selected':''}>${s===1?'없음':'Lv'+s}</option>`).join('')}</select>
+    <div class="presets">${PRESETS.map(([l,s,n])=>`<button data-lv="${l}" data-sl="${s}" class="${l===LV&&s===SL?'on':''}">${n.replace(' (기본)','').replace(' (최대)','').replace('Lv50 + 강화7','+강화7')}</button>`).join('')}</div></div>`;
+}
+function skillCard(s, talents){
+  const r=ROLE[s.role]||['r-sk'], tree=(talents||[]).find(t=>t.id===s.id);
+  const meta=[s.slot&&`<span>상황 <b>${esc(s.slot)}</b></span>`, s.button&&`<span>버튼 <b>${esc(s.button)}</b></span>`,
+    s.viaButton&&`<span><b>‘${esc(s.viaButton)}’</b> 버튼 대체</span>`,
+    ...(s.attrs||[]).map(a=>`<span>${esc(a.k)} <b>${esc(a.v)}</b></span>`),
+    s.moraleCost&&!(s.attrs||[]).some(a=>/사기/.test(a.k))&&`<span>사기 소모 <b>${fmt(s.moraleCost)}</b></span>`,
+    s.cooldown&&!(s.attrs||[]).some(a=>/쿨/.test(a.k))&&`<span>쿨타임 <b>${s.cooldown}초</b></span>`].filter(Boolean).join('');
+  const combos=(s.combos||[]).map(c=>`<div class="combo">${c.map(x=>`<span>${esc(x)}</span>`).join('<i>→</i>')}</div>`).join('');
+  return `<div class="sk ${r[0]==='r-ult'?'ult':''}">
+    <div class="skh">${icon(s.icon)}<div><div class="h"><span class="rb ${r[0]}">${esc(s.role)}</span><b>${esc(s.name)}</b></div>
+      ${(s.labels||[]).length?`<div class="labs">${s.labels.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</div></div>
+    <p class="d">${clean(s.desc)}</p>
+    ${meta?`<div class="meta2">${meta}</div>`:''}
+    ${s.ip?`<p class="quote">${clean(s.ip)}</p>`:''}
+    ${(s.use||s.detail||combos)?`<details class="more2"><summary>조작법 · 상세 설명</summary>
+      ${s.use?`<p class="txt">${clean(s.use)}</p>`:''}${s.detail?`<p class="txt" style="color:var(--mut)">${clean(s.detail)}</p>`:''}${combos}</details>`:''}
+    ${(s.unlocks||[]).length?`<details class="more2"><summary>재능으로 해금되는 스킬 ${s.unlocks.length}개</summary>
+      ${s.unlocks.map(u=>`<div class="sub2">${icon(u.icon,'ic sm')}<div><b>${esc(u.name)}</b>${u.byTalent?`<span class="by">재능 ‘${esc(u.byTalent)}’</span>`:''}
+        <p>${clean(u.desc)}</p>${u.use?`<p>${clean(u.use)}</p>`:''}${(u.attrs||[]).length?`<p>${u.attrs.map(a=>`${esc(a.k)}: ${esc(a.v)}`).join(' · ')}</p>`:''}</div></div>`).join('')}</details>`:''}
+    ${tree&&tree.groups.length?`<details class="more2"><summary>재능 트리 ${tree.groups.length}개</summary>
+      ${tree.groups.map(g=>`<div class="tg"><div class="h">${esc(g.name)}<span class="ty ${g.type==='스킬 해금'?'unl':''}">${esc(g.type||'')}</span>${g.requires?`<span class="req">← ${esc(g.requires)} 다음</span>`:''}</div>
+        ${g.desc?`<p class="txt" style="color:var(--mut);margin-top:4px">${clean(g.desc)}</p>`:''}
+        <ol>${g.levels.map(l=>`<li>${clean(l.desc||l.skill||'')}${l.total?` <b>(누적 ${clean(l.total)})</b>`:''}${l.cost?` <span style="opacity:.7">· ${esc(l.cost)}</span>`:''}</li>`).join('')}</ol></div>`).join('')}</details>`:''}
+  </div>`;
+}
+function skillPane(p,d){
+  if(!d) return '<div class="loading">스킬 정보를 불러오지 못했습니다.</div>';
+  const list=[...d.skills].sort((a,b)=>(ROLE[a.role]?.[1]??3)-(ROLE[b.role]?.[1]??3));
+  return `<div class="list">${list.map(s=>skillCard(s,d.talents)).join('')}</div>
+    <div class="note">재능 트리가 열리는 선수 레벨: 궁극기 Lv1, 나머지 스킬 Lv11. 재료: 재능 재료·슈퍼스타 재능 카드.</div>`;
+}
+function growPane(p,d){
+  const L50=statsAt(p,50,1), L57=statsAt(p,50,7), base=p.stats, gc=D.growthCost[p.quality]||{};
+  const adds=a=>a.map(([i,v])=>`${LBL[typeof i==='number'?K[i]:i]} <em>+${v}</em>`).join(', ');
+  return `<h3 class="sec">레벨별 능력치 (Lv1 → Lv50 → 강화7)</h3>
+    <div class="scrollx"><table class="gtbl"><thead><tr><th>능력치</th><th>Lv1</th><th>Lv50</th><th>강화7</th><th>상승</th></tr></thead><tbody>
+      ${LAB.map(([k,l])=>`<tr><td>${l}</td><td>${base[k]}</td><td>${L50[k]}</td><td>${L57[k]}</td><td class="${L57[k]>base[k]?'up':''}">${L57[k]>base[k]?'+'+(L57[k]-base[k]):'-'}</td></tr>`).join('')}
+    </tbody></table></div>
+    <h3 class="sec mt">한계 돌파</h3>
+    ${p.g.b.map(([at,a],i)=>`<div class="gstep"><div class="lv">Lv${at}</div><div class="gb"><div class="st">최대 레벨 ${at+10}으로 상승 · ${adds(a)}</div>
+      ${gc.bt?`<div class="cost">${fmt(gc.bt[i])} 골드</div>`:''}</div></div>`).join('')}
+    <h3 class="sec mt">강화 (Lv2~7)</h3>
+    ${d?d.strengthen.map(s=>{const x=s.badge||s.freestyle;return `<div class="gstep"><div class="lv">Lv${s.lv}</div><div class="gb">
+      <div class="st">${adds(s.add)}</div>
+      ${x?`<div class="rw">${icon(x.icon,'ic sm')}<div><b>${esc(x.name)}</b><span class="pill">${s.badge?'배지'+(x.mode?' · '+esc(x.mode):''):'프리스타일'}</span>${x.exclusive?'<span class="pill ex">전용</span>':''}
+        <p>${clean(x.desc)}</p></div></div>`:''}
+      ${s.gold?`<div class="cost">${fmt(s.gold)} 골드${s.cards?' + '+esc(s.cards):''}</div>`:''}</div></div>`}).join(''):'<div class="loading">불러오는 중…</div>'}
+    <h3 class="sec mt">성장 비용 (${p.quality}급 공통)</h3>
+    <dl class="kv" style="margin:0"><div><dt>트레이닝 Lv2~50</dt><dd>${fmt(gc.train||0)}</dd></div><div><dt>한계 돌파 4회</dt><dd>${fmt((gc.bt||[]).reduce((a,b)=>a+b,0))}</dd></div>
+      <div><dt>Lv50까지 골드</dt><dd>${fmt(gc.toLv50||0)}</dd></div><div><dt>강화 Lv7까지</dt><dd>${fmt(gc.strengthen||0)} + 카드 ${gc.cards||0}장</dd></div></dl>
+    <div class="note">게임 데이터 공식으로 계산한 값입니다. 잠재력·의상·파트너 보너스는 계정마다 달라 넣지 않았습니다.</div>`;
+}
+function profPane(p){
+  const pr=p.profile||{};
+  return `${p.imgFull?`<img class="fullimg" loading="lazy" src="${p.imgFull}" alt="${esc(p.kr)} 일러스트">`:''}
+    <h3 class="sec">기본 정보</h3>
+    <dl class="prof" style="margin:0">
+      ${p.nick?`<div><dt>별명</dt><dd>${esc(p.nick)}</dd></div>`:''}
+      ${p.country?`<div><dt>국적</dt><dd>${p.flag?`<img class="flag" src="${p.flag}" alt="">`:''}${esc(p.country)}</dd></div>`:''}
+      ${PROF.filter(([k])=>pr[k]).map(([k,l])=>`<div><dt>${l}</dt><dd>${esc(k==='number'?'#'+pr[k]:pr[k])}</dd></div>`).join('')}
+      ${p.releasedKR?`<div><dt>한국 서버 출시</dt><dd>${esc(p.releasedKR.replace(/-/g,'.'))}</dd></div>`:''}
+      ${p.obtain?`<div><dt>획득처</dt><dd>${clean(p.obtain)}</dd></div>`:''}
+    </dl>
+    ${(p.tags||[]).length?`<h3 class="sec mt">플레이 성향</h3><div class="labs" style="gap:6px">${p.tags.map(t=>`<span class="tag" style="font-size:12.5px">${esc(t)}</span>`).join('')}</div>`:''}
+    ${p.quote?`<h3 class="sec mt">명대사</h3><p class="quote" style="font-size:13.5px">${clean(p.quote)}</p>`:''}
+    ${p.dialogue&&p.dialogue.q?`<h3 class="sec mt">보급 상자 대화</h3><div class="dlg"><div><b>Q</b>${clean(p.dialogue.q)}</div><div><b>A</b>${clean(p.dialogue.a)}</div></div>`:''}
+    ${pr.playStyle?`<h3 class="sec mt">플레이스타일</h3>
+      <p class="ps clamp" id="ps">${esc(pr.playStyle)}</p>
+      <button class="more" id="psMore" aria-expanded="false">펼치기 ▾</button>`:''}
+    ${p.intro?`<h3 class="sec mt">튜토리얼 소개</h3><p class="ps">${clean(p.intro)}</p>`:''}`;
+}
+function bondPane(p){
+  const bonds=p.bonds||[];
+  return `<div class="list">${bonds.map(b=>{const pt=b.partner,ef=b.effect;return `
+    <div class="item bond"><div class="h"><span class="bond-ic">♥</span><b>${esc(b.name)}</b></div>
+      ${pt?`<div class="pt">${pt.img?`<img loading="lazy" src="${pt.img}" alt="">`:''}<div><b>${esc(pt.name)}</b><div style="color:var(--mut);font-size:11.5px;font-weight:700">파트너 선수${pt.pos?' · '+pt.pos:''}</div></div>
+        ${ef?`<div class="ef">${esc(LBL[ef.stat]||ef.stat)} +${ef.max}<small>파트너 Lv1~5: +1~+${ef.max}</small></div>`:''}</div>`:''}
+      ${b.sharedWith.length?`<div class="shared">같은 파트너를 쓰는 선수 ${b.sharedWith.map(id=>{const q=byId(id);return q?`<button data-open="${q.id}">${esc(q.kr)}</button>`:''}).join('')}</div>`:''}
+    </div>`}).join('')||'<div class="note">케미 정보가 없습니다.</div>'}</div>
+    <div class="note">케미는 파트너 선수를 얻으면 활성화되고, 파트너 레벨에 따라 표시된 능력치가 오릅니다. 케미 이야기 본문은 게임 한국어판에 번역이 없어 싣지 않았습니다.</div>`;
+}
 
 function openP(id){
-  const p = PL.find(x=>x.id==id); if(!p) return;
-  const mx={}; LAB.forEach(([k])=>mx[k]=maxOf(k));
-  const pr = p.profile||{}, skills=[...(p.skills||[])].sort((a,b)=>(ROLE[a.role]?.[1]??3)-(ROLE[b.role]?.[1]??3)), bonds=p.bonds||[];
-  const alias = [p.full&&p.full!==p.kr?p.full:'', p.nick&&p.nick!==p.kr&&p.nick!==p.full?`별명 ${p.nick}`:''].filter(Boolean);
-  const tabs = [['stats','능력치'],['prof','프로필'],['skill','스킬',skills.length],['bond','케미',bonds.length]];
+  const p = byId(id); if(!p) return; curId=p.id;
+  const alias=[p.full&&p.full!==p.kr?p.full:'', p.nick&&p.nick!==p.kr&&p.nick!==p.full?`별명 ${p.nick}`:''].filter(Boolean);
+  const tabs=[['stats','능력치'],['skill','스킬',(p.sk||[]).length?7:null],['grow','성장'],['prof','프로필'],['bond','케미',(p.bonds||[]).length]];
   document.getElementById('sheet').innerHTML = `
     <div class="top">
       <div class="av">${p.img?`<img src="${p.img}" alt="${esc(p.kr)}">`:''}</div>
@@ -381,98 +679,112 @@ function openP(id){
         ${alias.length?`<div class="full">${esc(alias[0])}${alias[1]?` <em>· ${esc(alias[1])}</em>`:''}</div>`:''}
         <div class="en">${esc(p.name)} · ${esc(p.cn)}</div>
         ${p.desc?`<div class="desc">${esc(p.desc)}</div>`:''}
-        <div class="tags"><span class="tag pos">${p.pos} ${D.pos[p.pos]||''}</span>
+        <div class="tags"><span class="tag pos">${p.pos} ${esc(D.pos[p.pos]||'')}</span>
           <span class="tag q-${p.quality.toLowerCase()}">${p.quality}급</span>
-          <span class="tag">${D.io[p.io]||''}</span></div>
-        <div class="ovr"><b>${p.ovr}</b><span>평균 능력치</span><button class="cmpbtn" data-cmp="${p.id}">⇄ 비교</button></div>
-        <div class="ranks"><span>전체 <b>${RANK.ovr[p.id]}위</b>/${PL.length}</span><span>·</span><span>${p.pos} <b>${posRank(p)}위</b>/${posCnt(p.pos)}</span></div>
+          <span class="tag">${D.io[p.io]||''}</span>
+          ${p.retired?'<span class="tag mut">은퇴 선수</span>':''}${p.original?'<span class="tag mut">게임 오리지널</span>':''}
+          ${p.flag?`<span class="tag flagt"><img class="flag" src="${p.flag}" alt="">${esc(p.country||'')}</span>`:''}</div>
+        <div id="hdr">${headNums(p)}</div>
       </div>
       <button class="closeb" onclick="closeM()" aria-label="닫기">×</button>
     </div>
     <div class="tabs" role="tablist">${tabs.map(([k,l,n])=>
       `<button role="tab" data-tab="${k}" class="${tab===k?'on':''}" aria-selected="${tab===k}">${l}${n!=null?`<small>${n}</small>`:''}</button>`).join('')}</div>
-    <div class="pane body" data-pane="stats">
-      <div>${radar(p.stats)}</div>
-      <div class="bars">${LAB.map(([k,l])=>{const v=p.stats[k];return `
-        <div class="bar rk"><span class="k">${l}</span><span class="t"><span class="f" style="width:${v}%"></span></span>
-        <span class="v ${v===mx[k]?'hi':''}">${v}</span><span class="r ${RANK[k][p.id]<=3?'best':''}">${RANK[k][p.id]}위</span></div>`}).join('')}</div>
-    </div>
-    <div class="pane" data-pane="prof">
-      <h3 class="sec">기본 정보</h3>
-      <dl class="prof" style="margin:0">${PROF.filter(([k])=>pr[k]).map(([k,l])=>
-        `<div><dt>${l}</dt><dd>${esc(k==='number'?'#'+pr[k]:pr[k])}</dd></div>`).join('')}</dl>
-      ${pr.playStyle?`<h3 class="sec mt">플레이스타일</h3>
-        <p class="ps clamp" id="ps">${esc(pr.playStyle)}</p>
-        <button class="more" id="psMore" aria-expanded="false">펼치기 ▾</button>`:''}
-    </div>
-    <div class="pane" data-pane="skill">
-      <div class="list">${skills.map(s=>{const r=ROLE[s.role]||['r-sk'];return `
-        <div class="item ${r[0]==='r-ult'?'ult':''}"><div class="h"><span class="rb ${r[0]}">${esc(s.role)}</span><b>${esc(s.name)}</b></div>
-        ${s.desc?`<p>${esc(s.desc)}</p>`:''}</div>`}).join('')||'<div class="note">스킬 정보가 없습니다.</div>'}</div>
-    </div>
-    <div class="pane" data-pane="bond">
-      <div class="list">${bonds.map(b=>`
-        <div class="item"><div class="h"><span class="bond-ic">♥</span><b>${esc(b.name)}</b></div>
-        ${b.content&&!HAN.test(b.content)?`<p>${esc(b.content)}</p>`:''}</div>`).join('')||'<div class="note">케미 정보가 없습니다.</div>'}</div>
-      ${bonds.some(b=>b.content&&HAN.test(b.content))?'<div class="note">케미 이야기 본문은 한국어 번역을 준비 중입니다.</div>':''}
-    </div>`;
+    <div class="pane" data-pane="stats">${lvCtl()}<div class="body" id="paneStats" style="padding:0">${statsPane(p)}</div></div>
+    <div class="pane" data-pane="skill" id="paneSkill"><div class="loading">불러오는 중…</div></div>
+    <div class="pane" data-pane="grow" id="paneGrow">${growPane(p,PD[p.id])}</div>
+    <div class="pane" data-pane="prof">${profPane(p)}</div>
+    <div class="pane" data-pane="bond">${bondPane(p)}</div>`;
   showTab(tab);
-  const sh=document.getElementById('sheet'); sh.scrollTop=0;
+  loadP(p.id).then(d=>{ if(curId!==p.id) return;
+    document.getElementById('paneSkill').innerHTML=skillPane(p,d);
+    document.getElementById('paneGrow').innerHTML=growPane(p,d); });
+  document.getElementById('sheet').scrollTop=0;
   const m=document.getElementById('modal');
   if(!m.classList.contains('show')){
     m.classList.add('show'); document.body.style.overflow='hidden';
-    try{history.pushState({dcdModal:1},'')}catch(e){}
-  }
+    try{history.pushState({dcdModal:1},'','#p/'+p.id)}catch(e){}
+  } else { try{history.replaceState(history.state,'','#p/'+p.id)}catch(e){} }
+}
+function refreshStats(){ // 레벨·레이더 종류가 바뀌면 능력치 탭과 머리글만 다시 그린다
+  const p=byId(curId); if(!p) return;
+  document.getElementById('paneStats').innerHTML=statsPane(p);
+  document.getElementById('hdr').innerHTML=headNums(p);
+  document.getElementById('lvV').textContent='Lv'+LV;
+  document.querySelectorAll('.lvctl .presets button').forEach(b=>b.classList.toggle('on',+b.dataset.lv===LV&&+b.dataset.sl===SL));
+  document.getElementById('lvR').value=LV; document.getElementById('slS').value=SL;
+  dirty=true;
 }
 function showTab(k){
   tab=k;
   document.querySelectorAll('#sheet .tabs button').forEach(b=>{const on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
   document.querySelectorAll('#sheet .pane').forEach(el=>el.hidden=el.dataset.pane!==k);
 }
-function hideM(){document.getElementById('modal').classList.remove('show');document.body.style.overflow=''}
-function closeM(){ if(history.state&&history.state.dcdModal) history.back(); else hideM(); }
+function hideM(){document.getElementById('modal').classList.remove('show');document.body.style.overflow='';curId=null;if(dirty){dirty=false;render()}}
+function closeM(){
+  if(history.state&&history.state.dcdModal) history.back();
+  else { hideM(); try{history.replaceState(null,'',location.pathname+location.search+(view==='cmp'?`#vs/${cmpA}/${cmpB}`:view==='guide'?'#guide':''))}catch(e){} }
+}
 let afterClose=null; // 모달을 뒤로가기로 닫은 다음 할 일(비교 화면 전환)
 window.addEventListener('popstate',()=>{hideM();if(afterClose){const f=afterClose;afterClose=null;f()}});
-try{if(history.state&&history.state.dcdModal)history.replaceState(null,'')}catch(e){} // 새로고침 시 남은 모달 기록 정리
-document.getElementById('sheet').addEventListener('click',e=>{
+
+const sheet=document.getElementById('sheet');
+sheet.addEventListener('click',e=>{
   e.stopPropagation();
   const t=e.target.closest('.tabs button'); if(t){showTab(t.dataset.tab);return;}
-  const cb=e.target.closest('[data-cmp]'); if(cb){const p=PL.find(x=>x.id==cb.dataset.cmp);cmpA=p.id;
-    cmpB=(byOvr.find(q=>q.pos===p.pos&&q.id!==p.id)||byOvr.find(q=>q.id!==p.id)).id;
+  const rm=e.target.closest('[data-rm]'); if(rm){RM=rm.dataset.rm;refreshStats();return;}
+  const pr=e.target.closest('.presets button'); if(pr){setLevel(+pr.dataset.lv,+pr.dataset.sl);refreshStats();return;}
+  const op=e.target.closest('[data-open]'); if(op){openP(op.dataset.open);return;}
+  const bar=e.target.closest('.bar[data-stat]'); if(bar){bar.classList.toggle('open');return;}
+  const cb=e.target.closest('[data-cmp]'); if(cb){const p=byId(cb.dataset.cmp);cmpA=p.id;
+    cmpB=(byOvr().find(q=>q.pos===p.pos&&q.id!==p.id)||byOvr().find(q=>q.id!==p.id)).id;
     const go=()=>{setView('cmp');window.scrollTo({top:document.getElementById('cmp').offsetTop-80})};
     if(history.state&&history.state.dcdModal){afterClose=go;history.back()}else{hideM();go()} return;}
   if(e.target.id==='psMore'){const ps=document.getElementById('ps');const open=ps.classList.toggle('clamp')===false;
     e.target.textContent=open?'접기 ▴':'펼치기 ▾';e.target.setAttribute('aria-expanded',open);}
 });
+sheet.addEventListener('input',e=>{if(e.target.id==='lvR'){setLevel(+e.target.value,SL);refreshStats()}});
+sheet.addEventListener('change',e=>{if(e.target.id==='slS'){setLevel(LV,+e.target.value);refreshStats()}});
 
-// events
+// ── 이벤트 ──
 document.getElementById('posChips').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;
   document.querySelectorAll('#posChips .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');fPos=c.dataset.pos;render()};
 document.getElementById('qChips').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;
   document.querySelectorAll('#qChips .chip').forEach(x=>{x.classList.remove('on','q-ss','q-s','q-a')});
   c.classList.add('on');if(c.dataset.q)c.classList.add('q-'+c.dataset.q.toLowerCase());fQ=c.dataset.q;render()};
-document.getElementById('q').oninput=e=>{fText=e.target.value.trim().toLowerCase();render()};
+document.getElementById('q').oninput=e=>{fText=e.target.value.trim().toLowerCase();if(view==='cmp'||view==='guide')setView('grid');else render()};
 sortSel.onchange=e=>{sortKey=e.target.value;render()};
-function setView(v){view=v;if(v!=='cmp'&&location.hash.startsWith('#vs/'))try{history.replaceState(history.state,'',location.pathname+location.search)}catch(e){}
-  [['grid','vGrid'],['table','vTable'],['cmp','vCmp']].forEach(([k,id])=>document.getElementById(id).classList.toggle('on',k===v));render()}
+document.getElementById('lvSel').onchange=e=>{const [l,s]=e.target.value.split('-').map(Number);setLevel(l,s);render()};
+function setView(v){view=v;
+  if(v!=='cmp'&&v!=='guide'&&/^#(vs|guide)/.test(location.hash))try{history.replaceState(history.state,'',location.pathname+location.search)}catch(e){}
+  if(v==='guide')try{history.replaceState(history.state,'','#guide')}catch(e){}
+  [['grid','vGrid'],['table','vTable'],['cmp','vCmp'],['guide','vGuide']].forEach(([k,id])=>document.getElementById(id).classList.toggle('on',k===v));render()}
 document.getElementById('vGrid').onclick=()=>setView('grid');
 document.getElementById('vTable').onclick=()=>setView('table');
 document.getElementById('vCmp').onclick=()=>setView('cmp');
-document.getElementById('cmp').addEventListener('change',e=>{if(e.target.id==='cA')cmpA=+e.target.value;if(e.target.id==='cB')cmpB=+e.target.value;renderCmp()});
-document.getElementById('cmp').addEventListener('click',e=>{if(e.target.closest('.swap')){[cmpA,cmpB]=[cmpB,cmpA];renderCmp()}});
+document.getElementById('vGuide').onclick=()=>setView('guide');
+const cmpEl=document.getElementById('cmp');
+cmpEl.addEventListener('change',e=>{if(e.target.id==='cA')cmpA=+e.target.value;if(e.target.id==='cB')cmpB=+e.target.value;renderCmp()});
+cmpEl.addEventListener('click',e=>{if(e.target.closest('.swap')){[cmpA,cmpB]=[cmpB,cmpA];renderCmp();return}
+  const rm=e.target.closest('[data-rm]');if(rm){RM=rm.dataset.rm;renderCmp()}});
 document.body.addEventListener('click',e=>{
   const row=e.target.closest('[data-id]'); if(row){openP(row.dataset.id);return;}
-  const th=e.target.closest('th[data-k]'); if(th){sortKey=th.dataset.k;sortSel.value=LAB.some(l=>l[0]===sortKey)?sortKey:'ovr';render();}
+  const th=e.target.closest('th[data-k]'); if(th){sortKey=th.dataset.k;sortSel.value=sortKey;render();}
 });
 document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeM()};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&curId)closeM()});
 // theme
 const TH=document.getElementById('theme');
 try{const t=localStorage.getItem('dcd-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
 TH.onclick=()=>{const cur=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
   document.documentElement.setAttribute('data-theme',cur);try{localStorage.setItem('dcd-theme',cur)}catch(e){}};
-{const m=location.hash.match(/^#vs\/(\d+)\/(\d+)$/);
- if(m&&PL.some(p=>p.id==m[1])&&PL.some(p=>p.id==m[2])){cmpA=+m[1];cmpB=+m[2];setView('cmp')} else render();}
+
+// ── 시작 ──
+recalc(); fillLvSel();
+{const h=location.hash, m=h.match(/^#vs\/(\d+)\/(\d+)$/), mp=h.match(/^#p\/(\d+)$/);
+ if(m&&byId(m[1])&&byId(m[2])){cmpA=+m[1];cmpB=+m[2];setView('cmp')}
+ else if(h==='#guide') setView('guide');
+ else { render(); if(mp&&byId(mp[1])){ openP(mp[1]); try{history.replaceState(null,'',location.pathname+location.search+'#p/'+mp[1])}catch(e){} } }}
 </script>
 </body>
 </html>
