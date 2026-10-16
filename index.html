@@ -19,9 +19,9 @@
 }
 :root:not([data-theme="dark"]) @media (prefers-color-scheme:light){}
 @media (prefers-color-scheme:light){
-  :root:not([data-theme="dark"]){--bg:#f6f3ee;--panel:#fff;--panel2:#f3eee7;--line:#e5ddd2;--tx:#241d15;--mut:#7a6f60;}
+  :root:not([data-theme="dark"]){--bg:#f6f3ee;--panel:#fff;--panel2:#f3eee7;--line:#e5ddd2;--tx:#241d15;--mut:#7a6f60;--acc2:#c4561a;}
 }
-:root[data-theme="light"]{--bg:#f6f3ee;--panel:#fff;--panel2:#f3eee7;--line:#e5ddd2;--tx:#241d15;--mut:#7a6f60;}
+:root[data-theme="light"]{--bg:#f6f3ee;--panel:#fff;--panel2:#f3eee7;--line:#e5ddd2;--tx:#241d15;--mut:#7a6f60;--acc2:#c4561a;}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:14px;-webkit-text-size-adjust:100%}
@@ -89,7 +89,7 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 /* modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
 .modal.show{display:flex}
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:640px;width:100%;max-height:90vh;overflow:auto}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:640px;width:100%;max-height:90vh;overflow:auto;min-height:min(640px,90vh);overscroll-behavior:contain}
 .sheet .top{display:flex;gap:16px;padding:18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .sheet .av{width:128px;height:128px;border-radius:14px;overflow:hidden;background:radial-gradient(120% 120% at 50% 0,var(--panel2),var(--panel));flex:none}
 .sheet .av img{width:100%;height:100%;object-fit:cover;object-position:center top}
@@ -103,8 +103,54 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 .ovr b{font-size:34px;font-weight:900;line-height:1;color:var(--acc);font-variant-numeric:tabular-nums}
 .ovr span{color:var(--mut);font-size:12px}
 .closeb{margin-left:auto;align-self:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--mut);width:34px;height:34px;cursor:pointer;font-size:18px;flex:none}
-.body{padding:18px;display:grid;grid-template-columns:200px 1fr;gap:20px}
-@media(max-width:560px){.body{grid-template-columns:1fr}.sheet .av{width:104px;height:104px}}
+.body{padding:18px;display:grid;grid-template-columns:236px 1fr;gap:18px;align-items:center}
+.sheet .who .full{color:var(--tx);font-weight:700;font-size:13.5px;margin-top:3px}
+.sheet .who .full em{font-style:normal;color:var(--mut);font-weight:600}
+.sheet .desc{margin-top:8px;color:var(--acc2);font-weight:800;font-size:13px}
+.sheet .desc::before{content:"“"}.sheet .desc::after{content:"”"}
+/* detail tabs */
+.tabs{position:sticky;top:0;z-index:2;display:flex;background:var(--panel);border-bottom:1px solid var(--line);padding:0 10px}
+.tabs button{flex:1;background:none;border:0;border-bottom:2px solid transparent;color:var(--mut);font-weight:800;font-size:13.5px;padding:12px 4px 10px;cursor:pointer;white-space:nowrap}
+.tabs button small{font-size:11px;font-weight:700;opacity:.75;margin-left:3px}
+.tabs button.on{color:var(--acc);border-bottom-color:var(--acc)}
+.pane{padding:18px}
+.pane[hidden]{display:none}
+.pane.body{display:grid}.pane.body[hidden]{display:none}
+.sec{font-size:12px;font-weight:800;color:var(--mut);margin:0 0 9px;letter-spacing:.2px}
+.sec+.sec,.sec.mt{margin-top:20px}
+.prof{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.prof div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-width:0}
+.prof dt{font-size:11px;color:var(--mut);font-weight:700}
+.prof dd{margin:3px 0 0;font-weight:800;font-size:13.5px;overflow-wrap:anywhere}
+.ps{line-height:1.75;font-size:13.5px;margin:0;white-space:pre-line}
+.ps.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.more{margin-top:8px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--acc2);font-weight:800;font-size:12.5px;padding:7px 12px;cursor:pointer}
+.more:hover{border-color:var(--acc)}
+.list{display:flex;flex-direction:column;gap:9px}
+.item{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 13px}
+.item .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.item .h b{font-size:14.5px;font-weight:800}
+.item p{margin:6px 0 0;color:var(--mut);font-size:13px;line-height:1.65}
+.item.ult{border-color:rgba(255,122,47,.55);background:linear-gradient(135deg,rgba(255,122,47,.13),var(--panel2) 60%)}
+.rb{font-size:11px;font-weight:900;padding:3px 7px;border-radius:6px;line-height:1.2;flex:none}
+.rb.r-ult{background:var(--acc);color:#1a1109}
+.rb.r-pas{background:var(--s);color:#fff}
+.rb.r-sk{background:var(--panel);color:var(--acc2);border:1px solid var(--line)}
+.bond-ic{width:26px;height:26px;border-radius:8px;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--acc);font-size:13px;flex:none}
+.note{color:var(--mut);font-size:11.5px;margin-top:12px;line-height:1.6}
+@media(max-width:560px){
+  .body{grid-template-columns:1fr}.sheet .av{width:88px;height:88px}
+  .modal{padding:0;align-items:flex-end}
+  .sheet{border-radius:18px 18px 0 0;height:92vh;height:92dvh;max-height:none;min-height:0;border-bottom:0}
+  .sheet .top{padding:16px 14px 14px;gap:13px;flex-wrap:nowrap}
+  .sheet .who{min-width:0}
+  .sheet .who .nm{font-size:22px}
+  .ovr{margin-top:10px}.ovr b{font-size:28px}
+  .tabs{padding:0 4px}
+  .pane{padding:16px 14px 28px}
+  .pane.body .radar{max-width:280px;margin:0 auto;display:block}
+  .prof{grid-template-columns:1fr 1fr}
+}
 .radar{width:100%;height:auto}
 .radar text{fill:var(--mut);font-size:9px;font-weight:700}
 .radar .poly{fill:rgba(255,122,47,.25);stroke:var(--acc);stroke-width:2}
@@ -138,7 +184,7 @@ footer b{color:var(--tx)}
 <div class="wrap">
   <div class="hero">
     <h1>한국 서버 선수 능력치 도감</h1>
-    <p>현재 한국 서버에서 플레이할 수 있는 선수들의 능력치입니다. 카드를 눌러 세부 스탯과 레이더를 확인하세요.</p>
+    <p>현재 한국 서버에서 플레이할 수 있는 선수들의 능력치입니다. 카드를 눌러 능력치·프로필·스킬·케미를 확인하세요.</p>
   </div>
 
   <div class="filters">
@@ -191,7 +237,7 @@ sortSel.innerHTML = '<option value="ovr">평균 능력치 순</option>' +
 function filtered(){
   let a = PL.filter(p =>
     (!fPos || p.pos===fPos) && (!fQ || p.quality===fQ) &&
-    (!fText || (p.name+p.kr+p.cn).toLowerCase().includes(fText)));
+    (!fText || (p.name+p.kr+p.cn+(p.full||'')+(p.nick||'')).toLowerCase().includes(fText)));
   a.sort((x,y)=> (sortKey==='ovr'? y.ovr-x.ovr : y.stats[sortKey]-x.stats[sortKey]));
   return a;
 }
@@ -237,31 +283,84 @@ function radar(p){
     labels+=`<text x="${lx.toFixed(1)}" y="${(ly+3).toFixed(1)}" text-anchor="${anc}">${LAB[i][1]}</text>`;
     const v=p.stats[LAB[i][0]]/100;pts.push([cx+Math.cos(a)*R*v,cy+Math.sin(a)*R*v]);}
   const poly='M'+pts.map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join('L')+'Z';
-  return `<svg class="radar" viewBox="0 0 190 190">${grids}${axes}<path class="poly" d="${poly}"/>${labels}</svg>`;
+  return `<svg class="radar" viewBox="-26 -4 242 198">${grids}${axes}<path class="poly" d="${poly}"/>${labels}</svg>`;
 }
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const HAN = /[一-鿿]/; // 케미 이야기 중 한국어 번역이 아직 없는(중문) 것은 숨긴다
+const PROF = [['birthPlace','출생지'],['birth','생일'],['height','키'],['weight','몸무게'],['hand','주손'],['number','등번호'],['hobby','취미']];
+const ROLE = {'궁극기':['r-ult',0],'패시브':['r-pas',1],'스킬':['r-sk',2]};
+let tab='stats';
+
 function openP(id){
   const p = PL.find(x=>x.id==id); if(!p) return;
   const mx={}; LAB.forEach(([k])=>mx[k]=maxOf(k));
+  const pr = p.profile||{}, skills=[...(p.skills||[])].sort((a,b)=>(ROLE[a.role]?.[1]??3)-(ROLE[b.role]?.[1]??3)), bonds=p.bonds||[];
+  const alias = [p.full&&p.full!==p.kr?p.full:'', p.nick&&p.nick!==p.kr&&p.nick!==p.full?`별명 ${p.nick}`:''].filter(Boolean);
+  const tabs = [['stats','능력치'],['prof','프로필'],['skill','스킬',skills.length],['bond','케미',bonds.length]];
   document.getElementById('sheet').innerHTML = `
     <div class="top">
-      <div class="av">${p.img?`<img src="${p.img}">`:''}</div>
-      <div class="who"><div class="nm">${p.kr}</div><div class="en">${p.name} · ${p.cn}</div>
+      <div class="av">${p.img?`<img src="${p.img}" alt="${esc(p.kr)}">`:''}</div>
+      <div class="who"><div class="nm">${esc(p.kr)}</div>
+        ${alias.length?`<div class="full">${esc(alias[0])}${alias[1]?` <em>· ${esc(alias[1])}</em>`:''}</div>`:''}
+        <div class="en">${esc(p.name)} · ${esc(p.cn)}</div>
+        ${p.desc?`<div class="desc">${esc(p.desc)}</div>`:''}
         <div class="tags"><span class="tag pos">${p.pos} ${D.pos[p.pos]||''}</span>
           <span class="tag q-${p.quality.toLowerCase()}">${p.quality}급</span>
           <span class="tag">${D.io[p.io]||''}</span></div>
         <div class="ovr"><b>${p.ovr}</b><span>평균 능력치</span></div>
       </div>
-      <button class="closeb" onclick="closeM()">×</button>
+      <button class="closeb" onclick="closeM()" aria-label="닫기">×</button>
     </div>
-    <div class="body">
+    <div class="tabs" role="tablist">${tabs.map(([k,l,n])=>
+      `<button role="tab" data-tab="${k}" class="${tab===k?'on':''}" aria-selected="${tab===k}">${l}${n!=null?`<small>${n}</small>`:''}</button>`).join('')}</div>
+    <div class="pane body" data-pane="stats">
       <div>${radar(p)}</div>
       <div class="bars">${LAB.map(([k,l])=>{const v=p.stats[k];return `
         <div class="bar"><span class="k">${l}</span><span class="t"><span class="f" style="width:${v}%"></span></span>
         <span class="v ${v===mx[k]?'hi':''}">${v}</span></div>`}).join('')}</div>
+    </div>
+    <div class="pane" data-pane="prof">
+      <h3 class="sec">기본 정보</h3>
+      <dl class="prof" style="margin:0">${PROF.filter(([k])=>pr[k]).map(([k,l])=>
+        `<div><dt>${l}</dt><dd>${esc(k==='number'?'#'+pr[k]:pr[k])}</dd></div>`).join('')}</dl>
+      ${pr.playStyle?`<h3 class="sec mt">플레이스타일</h3>
+        <p class="ps clamp" id="ps">${esc(pr.playStyle)}</p>
+        <button class="more" id="psMore" aria-expanded="false">펼치기 ▾</button>`:''}
+    </div>
+    <div class="pane" data-pane="skill">
+      <div class="list">${skills.map(s=>{const r=ROLE[s.role]||['r-sk'];return `
+        <div class="item ${r[0]==='r-ult'?'ult':''}"><div class="h"><span class="rb ${r[0]}">${esc(s.role)}</span><b>${esc(s.name)}</b></div>
+        ${s.desc?`<p>${esc(s.desc)}</p>`:''}</div>`}).join('')||'<div class="note">스킬 정보가 없습니다.</div>'}</div>
+    </div>
+    <div class="pane" data-pane="bond">
+      <div class="list">${bonds.map(b=>`
+        <div class="item"><div class="h"><span class="bond-ic">♥</span><b>${esc(b.name)}</b></div>
+        ${b.content&&!HAN.test(b.content)?`<p>${esc(b.content)}</p>`:''}</div>`).join('')||'<div class="note">케미 정보가 없습니다.</div>'}</div>
+      ${bonds.some(b=>b.content&&HAN.test(b.content))?'<div class="note">케미 이야기 본문은 한국어 번역을 준비 중입니다.</div>':''}
     </div>`;
-  document.getElementById('modal').classList.add('show');
+  showTab(tab);
+  const sh=document.getElementById('sheet'); sh.scrollTop=0;
+  const m=document.getElementById('modal');
+  if(!m.classList.contains('show')){
+    m.classList.add('show'); document.body.style.overflow='hidden';
+    try{history.pushState({dcdModal:1},'')}catch(e){}
+  }
 }
-function closeM(){document.getElementById('modal').classList.remove('show')}
+function showTab(k){
+  tab=k;
+  document.querySelectorAll('#sheet .tabs button').forEach(b=>{const on=b.dataset.tab===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+  document.querySelectorAll('#sheet .pane').forEach(el=>el.hidden=el.dataset.pane!==k);
+}
+function hideM(){document.getElementById('modal').classList.remove('show');document.body.style.overflow=''}
+function closeM(){ if(history.state&&history.state.dcdModal) history.back(); else hideM(); }
+window.addEventListener('popstate',hideM);
+try{if(history.state&&history.state.dcdModal)history.replaceState(null,'')}catch(e){} // 새로고침 시 남은 모달 기록 정리
+document.getElementById('sheet').addEventListener('click',e=>{
+  e.stopPropagation();
+  const t=e.target.closest('.tabs button'); if(t){showTab(t.dataset.tab);return;}
+  if(e.target.id==='psMore'){const ps=document.getElementById('ps');const open=ps.classList.toggle('clamp')===false;
+    e.target.textContent=open?'접기 ▴':'펼치기 ▾';e.target.setAttribute('aria-expanded',open);}
+});
 
 // events
 document.getElementById('posChips').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;
