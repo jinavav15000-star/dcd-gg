@@ -1,0 +1,11 @@
+# Render 정적 사이트 설정(무료). 대시보드에서 직접 만들어도 된다.
+services:
+  - type: web
+    name: dcd-gg
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
