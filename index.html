@@ -34,6 +34,11 @@ header{background:linear-gradient(180deg,var(--panel),var(--bg));border-bottom:1
 .logo .ball{width:28px;height:28px;flex:none;filter:drop-shadow(0 2px 7px rgba(255,122,47,.45))}
 .logo b{background:linear-gradient(92deg,var(--acc),#ffd36b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .logo i{font-style:normal;color:var(--mut);font-weight:700;font-size:13px;margin-left:1px}
+.owner{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:4px 11px;flex:none}
+.owner svg{width:14px;height:14px;fill:none;stroke:#e8b923;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.mammon{background:linear-gradient(90deg,#d99e12,#ffd76b 55%,#f2b829);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;letter-spacing:1px}
+footer .crown{width:15px;height:15px;fill:none;stroke:#e8b923;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vertical-align:-3px}
+footer .credit{margin-top:10px;color:var(--mut)}
 .spacer{flex:1}
 .search{display:flex;gap:7px;min-width:180px;flex:1;max-width:340px}
 .search input{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--tx);padding:9px 12px;font-size:16px;outline:none}
@@ -340,6 +345,9 @@ details.more2[open] summary::before{content:"▾ ";}
       <svg class="ball" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#ff7a2f"/><path d="M2 12h20M12 2v20M4.9 4.9c3 2.4 3 11.8 0 14.2M19.1 4.9c-3 2.4-3 11.8 0 14.2" stroke="#1a1109" stroke-width="1.4"/></svg>
       <span>DUNK CITY <b>스탯</b> <i>DCD.GG</i></span>
     </div>
+    <span class="owner">
+      <svg viewBox="0 0 24 24"><path d="M4 9l4 3 4-6 4 6 4-3-1.5 10H5.5L4 9Z"/><path d="M5.5 19h13"/></svg>
+      by <span class="mammon">MAMMON</span></span>
     <div class="spacer"></div>
     <div class="search"><input id="q" type="search" placeholder="선수·별명·스킬 검색 (예: 커리, 르브론)" autocomplete="off"></div>
     <button class="iconbtn" id="theme" title="테마 전환" aria-label="테마 전환"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
@@ -384,6 +392,10 @@ details.more2[open] summary::before{content:"▾ ";}
       능력치는 게임 데이터 기준이며 업데이트로 바뀔 수 있습니다. 한국 서버 미출시 선수는 포함하지 않았습니다.<br>
       레벨별 능력치는 게임 공식(기본 + 트레이닝 + 한계 돌파 + 강화)으로 계산한 값이며, 계정마다 다른 잠재력·의상·파트너 보너스는 넣지 않았습니다.
       ‘평점’은 게임 카드 평점, ‘평균’은 14개 능력치 평균(사이트 자체 지표)입니다.
+    </div>
+    <div class="credit">
+      <svg class="crown" viewBox="0 0 24 24" fill="none"><path d="M4 9l4 3 4-6 4 6 4-3-1.5 10H5.5L4 9Z"/><path d="M5.5 19h13"/></svg>
+      Created &amp; owned by <span class="mammon" style="font-size:14px">MAMMON</span> · © 2026 MAMMON. All rights reserved.
     </div>
   </footer>
 </div>
