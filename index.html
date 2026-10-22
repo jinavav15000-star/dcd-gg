@@ -567,6 +567,8 @@ function renderGuide(){
     <p class="note">트레이닝은 레벨이 오를 때마다 정해진 능력치 5개가 1씩 오릅니다. 레벨 10·20·30·40에서 한계 돌파를 하면 최대 레벨이 10 늘고 선수별 주력 능력치 5개가 2~4씩 오릅니다. 강화는 Lv2~7까지 능력치와 배지·프리스타일이 붙습니다.</p>
     <h2>스킬 상황 용어</h2>
     <div class="gcards"><div class="gcard"><ul>${Object.values(D.skillStates||{}).map(v=>`<li>${clean(v)}</li>`).join('')}<li>궁극기 = 버스트 스킬 (사기를 소모)</li><li>패시브 스킬 = 조건이 맞으면 자동 발동</li></ul></div></div>
+    <h2>코드로 본 숨은 디테일 <small style="color:var(--mut);font-size:12px">비공식 · 클라이언트 공식(Formula.lua) 분석</small></h2>
+    ${(D.mechanics||[]).map(t=>`<details><summary>${esc(t.title)}</summary><p>${clean(t.text)}</p></details>`).join('')}
     <h2>게임 팁 (튜토리얼)</h2>
     ${D.tutorials.map(t=>`<details><summary>${esc(t.title)}</summary><p>${clean(t.text)}</p></details>`).join('')}`;
 }
